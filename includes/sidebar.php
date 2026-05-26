@@ -1,38 +1,23 @@
 <?php
-/**
- * ===================================================
- * SIDEBAR - Include file cho menu navigation
- * ===================================================
- */
-
 $currentUser = getCurrentUser();
 $isAdmin = isAdmin();
 ?>
-
 <div class="sidebar">
     <div class="sidebar-header">
         <div class="sidebar-logo">
-            <i class="fas fa-shopping-cart"></i>
+            <img src="<?php echo url('assets/images/logocuahang.jpg'); ?>" alt="POS System Logo">
         </div>
         <h2>POS SYSTEM</h2>
     </div>
 
     <div class="sidebar-menu">
-        <!-- DASHBOARD -->
         <div class="menu-section">
             <div class="menu-section-title">Dashboard</div>
-            <?php if ($isAdmin): ?>
-                <a href="<?php echo url('modules/dashboard/admin_dashboard.php'); ?>" class="menu-item">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                </a>
-            <?php else: ?>
-                <a href="<?php echo url('modules/dashboard/staff_dashboard.php'); ?>" class="menu-item">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                </a>
-            <?php endif; ?>
+            <a href="<?php echo $isAdmin ? url('modules/dashboard/admin_dashboard.php') : url('modules/dashboard/staff_dashboard.php'); ?>" class="menu-item">
+                <i class="fas fa-gauge"></i> Dashboard
+            </a>
         </div>
 
-        <!-- QUẢN LÝ TÀI KHOẢN -->
         <div class="menu-section">
             <div class="menu-section-title">Tài khoản</div>
             <a href="<?php echo url('modules/profile/view_profile.php'); ?>" class="menu-item">
@@ -44,37 +29,34 @@ $isAdmin = isAdmin();
         </div>
 
         <?php if ($isAdmin): ?>
-        <!-- ADMIN ONLY -->
-        <div class="menu-section">
-            <div class="menu-section-title">Quản lý nhân viên</div>
-            <a href="<?php echo url('modules/employees/list_employees.php'); ?>" class="menu-item">
-                <i class="fas fa-users"></i> Danh sách nhân viên
-            </a>
-            <a href="<?php echo url('modules/employees/add_employee.php'); ?>" class="menu-item">
-                <i class="fas fa-user-plus"></i> Thêm nhân viên
-            </a>
-        </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Nhân viên</div>
+                <a href="<?php echo url('modules/employees/list_employees.php'); ?>" class="menu-item">
+                    <i class="fas fa-users"></i> Danh sách nhân viên
+                </a>
+                <a href="<?php echo url('modules/employees/add_employee.php'); ?>" class="menu-item">
+                    <i class="fas fa-user-plus"></i> Thêm nhân viên
+                </a>
+            </div>
 
-        <div class="menu-section">
-            <div class="menu-section-title">Danh mục & Sản phẩm</div>
-            <a href="<?php echo url('modules/categories/list_categories.php'); ?>" class="menu-item">
-                <i class="fas fa-tags"></i> Danh mục
-            </a>
-            <a href="<?php echo url('modules/products/list_products.php'); ?>" class="menu-item">
-                <i class="fas fa-box"></i> Sản phẩm
-            </a>
-        </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Danh mục và sản phẩm</div>
+                <a href="<?php echo url('modules/categories/list_categories.php'); ?>" class="menu-item">
+                    <i class="fas fa-tags"></i> Danh mục
+                </a>
+                <a href="<?php echo url('modules/products/list_products.php'); ?>" class="menu-item">
+                    <i class="fas fa-box"></i> Sản phẩm
+                </a>
+            </div>
         <?php else: ?>
-        <!-- STAFF - Chỉ xem sản phẩm -->
-        <div class="menu-section">
-            <div class="menu-section-title">Sản phẩm</div>
-            <a href="<?php echo url('modules/products/list_products.php'); ?>" class="menu-item">
-                <i class="fas fa-box"></i> Danh sách sản phẩm
-            </a>
-        </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Sản phẩm</div>
+                <a href="<?php echo url('modules/products/list_products.php'); ?>" class="menu-item">
+                    <i class="fas fa-box"></i> Danh sách sản phẩm
+                </a>
+            </div>
         <?php endif; ?>
 
-        <!-- BÁN HÀNG - Cả Admin và Staff -->
         <div class="menu-section">
             <div class="menu-section-title">Bán hàng</div>
             <a href="<?php echo url('modules/pos/pos.php'); ?>" class="menu-item">
@@ -85,7 +67,6 @@ $isAdmin = isAdmin();
             </a>
         </div>
 
-        <!-- KHÁCH HÀNG -->
         <div class="menu-section">
             <div class="menu-section-title">Khách hàng</div>
             <a href="<?php echo url('modules/customers/list_customers.php'); ?>" class="menu-item">
@@ -93,16 +74,15 @@ $isAdmin = isAdmin();
             </a>
         </div>
 
-        <!-- BÁO CÁO -->
         <div class="menu-section">
             <div class="menu-section-title">Báo cáo</div>
             <a href="<?php echo url('modules/reports/sales_report.php'); ?>" class="menu-item">
                 <i class="fas fa-chart-line"></i> Báo cáo doanh thu
             </a>
             <?php if ($isAdmin): ?>
-            <a href="<?php echo url('modules/reports/profit_report.php'); ?>" class="menu-item">
-                <i class="fas fa-chart-pie"></i> Báo cáo lợi nhuận
-            </a>
+                <a href="<?php echo url('modules/reports/profit_report.php'); ?>" class="menu-item">
+                    <i class="fas fa-chart-pie"></i> Báo cáo lợi nhuận
+                </a>
             <?php endif; ?>
         </div>
     </div>

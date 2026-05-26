@@ -1,18 +1,6 @@
--- ===================================================
--- POS SYSTEM DATABASE - Cửa hàng điện thoại & phụ kiện
--- ===================================================
--- Author: [Tên nhóm]
--- Date: 2026-02-01
--- Version: 1.0
--- ===================================================
-
--- Tạo database
 CREATE DATABASE IF NOT EXISTS pos_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE pos_system;
 
--- ===================================================
--- 1. BẢNG USERS - Người dùng (Admin & Staff)
--- ===================================================
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -151,7 +139,7 @@ CREATE TABLE order_details (
 INSERT INTO users (username, password, email, full_name, role, status, must_change_password, created_by) 
 VALUES (
     'admin',
-    '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', -- password: admin
+    '$2y$10$N5L9v2Y.jdd2EreAxw7At.FJYWVzwxMG01hN90CgsMc8eJFjlNIUG', -- password: admin
     'admin@gmail.com',
     'Quản trị viên',
     'admin',
@@ -164,7 +152,7 @@ VALUES (
 -- DỮ LIỆU MẪU - DANH MỤC
 -- ===================================================
 INSERT INTO categories (name, description, created_by) VALUES
-('Điện thoại', 'Điện thoại di động các loại', 1),
+('Iphone', 'Điện thoại di động các loại', 1),
 ('Tai nghe', 'Tai nghe có dây, không dây, bluetooth', 1),
 ('Sạc & Cáp', 'Sạc dự phòng, cáp sạc, củ sạc', 1),
 ('Ốp lưng', 'Ốp lưng, bao da điện thoại', 1),
