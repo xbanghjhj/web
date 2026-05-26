@@ -58,7 +58,7 @@ Hệ thống này cung cấp giải pháp số hóa toàn diện cho các nghi�
 
 ## Tài Liệu Đặc Tả Nghiệp Vụ và Yêu Cầu Chức Năng
 
-Dưới đây là đặc tả chi tiết các nghiệp vụ được trích xuất trực tiếp từ các yêu cầu thiết kế của dự án.
+Dưới đây là đặc tả chi tiết các yêu cầu nghiệp vụ được trích xuất trực tiếp từ các yêu cầu thiết kế của dự án.
 
 ### 1. Nghiệp Vụ Đăng Nhập và Truy Cập Hệ Thống
 
@@ -113,7 +113,7 @@ Giao diện được xây dựng trên cấu trúc grid của Bootstrap gồm 3 
 
 #### Ràng buộc UI/UX và bảo mật hệ thống
 - **Chế độ Ẩn/Hiện**: Kiểm tra vai trò của phiên session. Nhân viên Staff sẽ không được hệ thống hiển thị các nút chức năng như Xóa, Sửa, các input giá nhập, menu quản lý nhân viên.
-- **Bảo mật phía Server (PHP)**: Toan bộ logic xử lý nghiệp vụ phía sau (như `delete_product.php`, `add_employee.php`) phải kiểm tra quyền truy cập. Nếu người dùng cố tình gọi API hoặc gửi request từ các công cụ bên ngoài như Postman mà không có quyền hợp lệ, server phải ngay lập tức từ chối.
+- **Bảo mật phía Server (PHP)**: Toàn bộ logic xử lý nghiệp vụ phía sau (như `delete_product.php`, `add_employee.php`) phải kiểm tra quyền truy cập. Nếu người dùng cố tình gọi API hoặc gửi request từ các công cụ bên ngoài như Postman mà không có quyền hợp lệ, server phải ngay lập tức từ chối.
 - **Tương tác AJAX**: Sử dụng thư viện jQuery để thực hiện gửi nhận request bất đồng bộ khi lọc dữ liệu dashboard, giúp thay đổi biểu đồ và thông tin mà không cần tải lại toàn bộ trang web.
 
 ---
@@ -205,7 +205,7 @@ Toàn bộ đơn hàng phải được sắp xếp theo thứ tự thời gian g
 
 #### Hiệu suất và phân quyền trong báo cáo
 - **Quyền Nhân viên (Staff)**: Chỉ được xem doanh thu gộp, số lượng đơn hàng và sản phẩm của chính bản thân làm ra.
-- **Quyền Admin**: Xem được toàn bộ chỉ số trên của tất cả nhân viên, đồng thời được xem thêm cột Tổng lợi nhuận (công thức tính: Loi nhuan = (Gia ban le - Gia nhap) * So luong).
+- **Quyền Admin**: Xem được toàn bộ chỉ số trên của tất cả nhân viên, đồng thời được xem thêm cột Tổng lợi nhuận (công thức tính: Lợi nhuận = (Giá bán lẻ - Giá nhập) * Số lượng).
 - **UI/UX**: Báo cáo được hiển thị qua cả dạng bảng liệt kê chi tiết và biểu đồ trực quan để so sánh sự tăng trưởng doanh thu qua các ngày trong tuần hoặc so sánh tỷ trọng của các danh mục sản phẩm.
 
 ---
@@ -363,8 +363,79 @@ order_items (id, order_id, product_id, quantity, price_sell, price_import, subto
 
 ---
 
-## Lưu Ý Bảo Mật Trước Khi Triển Khai Thực Tế
-- Chuyển hằng số `DEBUG_MODE` về giá trị `false` trong file `config/config.php` để tránh để lộ thông tin lỗi hệ thống cho người dùng.
-- Thêm token CSRF vào các form nhập liệu để phòng chống tấn công CSRF.
-- Thiết lập cấu hình SSL (HTTPS) cho web server để mã hóa thông tin phiên session cookie.
-- Thay thế tài khoản root mặc định của MySQL bằng một tài khoản giới hạn quyền thao tác chỉ trên database `pos_system`.
+## Luồng Hoạt Động Hệ Thống
+
+```
+[Người dùng] → [index.php - Đăng nhập]
+                      ↓
+              [process_login.php - Xác thực]
+                      ↓
+        ┌─────────────┴─────────────┐
+     [Admin]                    [Staff]
+        ↓                          ↓
+[admin_dashboard.php]       [pos.php - Bán hàng]
+        ↓
+ ┌──────┼──────┬──────┬──────┬──────┐
+[SX]  [DM]  [NV]  [KH]  [DH]  [BC]
+Sản  Danh  Nhân  Khách  Đơn  Báo
+phẩm  mục  viên  hàng  hàng cáo
+```
+
+---
+
+## Xử Lý Sự Cố Thường Gặp
+
+### Lỗi "Lỗi kết nối database"
+- Kiểm tra MySQL đã chạy trong XAMPP chưa
+- Kiểm tra lại thông tin trong `config/database.php`
+- Đảm bảo database `pos_system` đã được tạo và import SQL
+
+### Lỗi trang trắng hoặc lỗi PHP
+- Mở `config/config.php`, đổi `define('DEBUG_MODE', true)` để xem lỗi chi tiết
+- Kiểm tra PHP version: `http://localhost/phpinfo.php`
+
+### Lỗi upload ảnh không được
+- Kiểm tra thư mục `assets/uploads/` có tồn tại không
+- Đảm bảo Apache có quyền ghi vào thư mục này (Windows: thường không cần cấu hình)
+
+### Lỗi Email không gửi được
+- Kiểm tra App Password Gmail (không dùng mật khẩu Google thường)
+- Đảm bảo đã bật **2-Step Verification** trên tài khoản Gmail
+- Thử đổi MAIL_PORT sang `465` và `MAIL_SMTPSECURE` sang `ssl`
+
+### Lỗi URL bị sai / redirect lỗi
+- Mở `config/config.php`, thêm biến môi trường:
+  ```php
+  // Hoặc set thủ công BASE_URL nếu auto-detect sai
+  define('BASE_URL', 'http://localhost/Demo DA21');
+  ```
+
+---
+
+## 👥 Tài Khoản Mặc Định
+
+| Loại | Username | Password | Quyền |
+|---|---|---|---|
+| Quản trị viên | `admin` | `admin` | Toàn quyền |
+| Nhân viên mới | *(do admin tạo)* | `52000148` (mặc định) | Bán hàng, đổi mật khẩu |
+
+---
+
+## Ghi Chú Bảo Mật Quan Trọng
+
+> Dự án này được thiết kế cho môi trường **học tập và demo**.  
+> Trước khi triển khai thực tế (production), cần thực hiện thêm:
+
+- [ ] Đổi `DEBUG_MODE` thành `false`
+- [ ] Thêm CSRF Token cho tất cả form POST
+- [ ] Cấu hình HTTPS (SSL)
+- [ ] Giới hạn rate-limit cho trang đăng nhập
+- [ ] Thay thế tài khoản `root` MySQL bằng user có quyền hạn chế
+- [ ] Backup database định kỳ
+
+---
+
+## 🎓 Về Dự Án
+
+Đây là đồ án thực hành môn **Phát triển ứng dụng Web** — Demo DA21.  
+Dự án được xây dựng nhằm minh họa các kỹ thuật PHP cơ bản đến nâng cao trong việc xây dựng một hệ thống quản lý thực tế.
