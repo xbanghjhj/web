@@ -1,234 +1,312 @@
-# POS System - He Thong Quan Ly Ban Hang Dien Thoai va Phu Kien
+# POS System - Hệ Thống Quản Lý Bán Hàng Điện Thoại và Phụ Kiện
 
-He thong POS (Point of Sale) hoan chinh danh cho cua hang dien thoai va phu kien. Duoc xay dung bang PHP thuan va MySQL, khong phu thuoc vao cac framework lon nhu Laravel hay Symfony.
-
----
-
-## Du An Giai Quyet Van De Gi
-
-Cac cua hang kinh doanh dien thoai va phu kien quy mo nho den trung binh thuong gap nhieu kho khan trong van hanh thuc te:
-
-- Ban hang thu con, de xay ra nham lan ve gia ca va ton kho.
-- Khong theo doi sat sao duoc doanh thu, chi phi va loi nhuan theo thoi gian thuc.
-- Kho khan trong viec phan quyen cho nhan vien ban hang va quan tri vien, dan den rui ro ve du lieu gia nhap.
-- Mat thong tin khach hang, thieu co so de cham soc khach hang than thiet va theo doi lich su mua hang.
-- Hoa don ban hang khong chuyen nghiep va thieu minh bach.
-- Quy trinh cap tai khoan cho nhan vien moi con thu cong, thieu tinh nang xac thuc qua email an toan.
-
-He thong nay cung cap giai phap so hoa toan dien cho cac nghiep vu tren.
+Hệ thống POS (Point of Sale) hoàn chỉnh dành cho cửa hàng điện thoại và phụ kiện. Được xây dựng bằng PHP thuần và MySQL, không phụ thuộc vào các framework lớn như Laravel hay Symfony.
 
 ---
 
-## Cong Nghe Su Dung
+## Dự Án Giải Quyết Vấn Đề Gì?
+
+Các cửa hàng kinh doanh điện thoại và phụ kiện quy mô nhỏ đến trung bình thường gặp nhiều khó khăn trong vận hành thực tế:
+
+- Bán hàng thủ công, dễ xảy ra nhầm lẫn về giá cả và tồn kho.
+- Không theo dõi sát sao được doanh thu, chi phí và lợi nhuận theo thời gian thực.
+- Khó khăn trong việc phân quyền cho nhân viên bán hàng và quản trị viên, dẫn đến rủi ro về dữ liệu giá nhập.
+- Mất thông tin khách hàng, thiếu cơ sở để chăm sóc khách hàng thân thiết và theo dõi lịch sử mua hàng.
+- Hóa đơn bán hàng không chuyên nghiệp và thiếu minh bạch.
+- Quy trình cấp tài khoản cho nhân viên mới còn thủ công, thiếu tính năng xác thực qua email an toàn.
+
+Hệ thống này cung cấp giải pháp số hóa toàn diện cho các nghiệp vụ trên.
+
+---
+
+## Tính Năng Chính
+
+### Dành cho Admin
+- **Dashboard tổng quan**: Thống kê doanh thu, số đơn, lợi nhuận — lọc theo ngày/tuần/tháng hoặc tùy chọn.
+- **Quản lý nhân viên**: Thêm nhân viên, gửi email mời kích hoạt, xem lịch sử bán hàng, khóa/mở tài khoản.
+- **Quản lý sản phẩm**: Thêm/sửa/xóa sản phẩm, upload ảnh, phân loại danh mục.
+- **Quản lý danh mục**: Tạo/xóa danh mục hàng hóa.
+- **Xem đơn hàng**: Xem chi tiết từng đơn, lọc theo thời gian.
+- **Báo cáo**: Báo cáo doanh thu và lợi nhuận với biểu đồ trực quan.
+
+### Dành cho Nhân viên (Staff)
+- **Bán hàng POS**: Tìm sản phẩm theo tên hoặc quét barcode, thêm vào giỏ, tính tiền thối.
+- **Quản lý khách hàng**: Tra cứu khách cũ theo số điện thoại hoặc tự động tạo khách mới.
+- **In hóa đơn PDF**: Tự động tạo hóa đơn sau mỗi giao dịch thành công.
+- **Đổi mật khẩu**: Bắt buộc đổi mật khẩu lần đầu đăng nhập.
+
+---
+
+## Công Nghệ Sử Dụng
 
 ### Backend
-- PHP 8.1+ (PHP thuan): Xu ly logic phia may chu.
-- MySQL / MariaDB: Luu tru co so du lieu quan he.
-- MySQLi (Prepared Statements): Thuc thi truy van an toan, ngan ngua triet de loi bao mat SQL Injection.
-- PHP Sessions: Duy tri trang thai dang nhap va phan quyen phien lam viec.
-- PHPMailer: Thu vien gui thu dien tu qua giao thuc SMTP phuc vu cho quy trinh xac thuc nhan vien.
-- FPDF: Thu vien ket xuat tai lieu dang PDF ho tro in hoa don thanh toan.
+- **PHP 8.1+ (PHP thuần)**: Xử lý logic phía máy chủ.
+- **MySQL / MariaDB**: Lưu trữ cơ sở dữ liệu quan hệ.
+- **MySQLi (Prepared Statements)**: Thực thi truy vấn an toàn, ngăn ngừa triệt để lỗi bảo mật SQL Injection.
+- **PHP Sessions**: Duy trì trạng thái đăng nhập và phân quyền phiên làm việc.
+- **PHPMailer**: Thư viện gửi thư điện tử qua giao thức SMTP phục vụ cho quy trình xác thực nhân viên.
+- **FPDF**: Thư viện kết xuất tài liệu dạng PDF hỗ trợ in hóa đơn thanh toán.
 
 ### Frontend
-- Bootstrap 5.3: Xay dung layout responsive va cac components UI co san.
-- jQuery 3.7: Ho tro tuong tac DOM va goi cac API AJAX khong reload trang.
-- Chart.js 4.4: Hien thi bieu do doanh thu va loi nhuan truc quan.
-- Font Awesome 6.5: Bo sung thu vien bieu tuong hien thi.
-- Vanilla CSS: Dinh nghia cac phong cach rieng biet cho giao dien dang nhap va dashboard.
+- **Bootstrap 5.3**: Xây dựng layout responsive và các components UI có sẵn.
+- **jQuery 3.7**: Hỗ trợ tương tác DOM và gọi các API AJAX không reload trang.
+- **Chart.js 4.4**: Hiển thị biểu đồ doanh thu và lợi nhuận trực quan.
+- **Font Awesome 6.5**: Bổ sung thư viện biểu tượng hiển thị.
+- **Vanilla CSS**: Định nghĩa các phong cách riêng biệt cho giao diện đăng nhập và dashboard.
 
 ---
 
-## Tai Lieu Dac Ta Nghiep Vu va Yeu Cau Chuc Nang
+## Tài Liệu Đặc Tả Nghiệp Vụ và Yêu Cầu Chức Năng
 
-Duoi day la dac ta chi tiet cac yeu cau nghiep vu duoc trich xuat truc tiep tu cac yeu cau thiet ke cua du an.
+Dưới đây là đặc tả chi tiết các nghiệp vụ được trích xuất trực tiếp từ các yêu cầu thiết kế của dự án.
 
-### 1. Nghiep Vu Dang Nhap va Truy Cap He Thong
+### 1. Nghiệp Vụ Đăng Nhập và Truy Cập Hệ Thống
 
-#### Quyen truy cap va duong dan xac thuc
-- Nhan vien cu va Admin: Duoc phep truy cap truc tiep thong qua trang dang nhap he thong.
-- Nhan vien moi: Bat buoc phai dang nhap thong qua lien ket (link) kich hoat gui trong email xac nhuc ma Admin cap phat.
-- Rang buoc bao mat: Neu nhan vien moi co tinh truy cap truc tiep vao trang login ma chua click vao link tu email, he thong se chan va thong bao: "Vui long dang nhap bang cach nhap vao lien ket trong email cua ban".
-- Hieu luc cua lien ket: Link xac nhan duoc gui qua email chi co gia tri su dung trong vong 1 phut ke tu thoi diem gui. Qua 1 phut, lien ket se het han va he thong yeu cau lien he Admin de gui lai.
+#### Quyền truy cập và đường dẫn xác thực
+- **Nhân viên cũ và Admin**: Được phép truy cập trực tiếp thông qua trang đăng nhập hệ thống.
+- **Nhân viên mới**: Bắt buộc phải đăng nhập thông qua liên kết (link) kích hoạt gửi trong email xác thực mà Admin cấp phát.
+- **Ràng buộc bảo mật**: Nếu nhân viên mới cố tình truy cập trực tiếp vào trang login mà chưa click vào link từ email, hệ thống sẽ chặn và thông báo: *"Vui lòng đăng nhập bằng cách nhấp vào liên kết trong email của bạn"*.
+- **Hiệu lực của liên kết**: Link xác nhận được gửi qua email chỉ có giá trị sử dụng trong vòng 1 phút kể từ thời điểm gửi. Quá 1 phút, liên kết sẽ hết hạn và hệ thống yêu cầu liên hệ Admin để gửi lại.
 
-#### Quy tac dinh danh tai khoan
-- Username: Duoc lay tu phan tien to (prefix) dung truoc ky tu @ cua dia chi email da dang ky. Vi du, neu email la nguyenvana@gmail.com, he thong tu dong phan tich va tao username la nguyenvana.
-- Tai khoan quan tri: Username mac dinh cua Admin luon la admin.
-- Password:
-  - Admin: Mat khau mac dinh ban dau la admin.
-  - Nhan vien moi: Mat khau tam thoi duoc thiet lap chinh la Ma so sinh vien cua truong nhom (viet thuong) de dam bao tinh xac thuc cua ma nguon tu phat trien.
-  - Nhan vien cu: Su dung mat khau ca nhan da duoc thay doi truoc do.
+#### Quy tắc định danh tài khoản
+- **Username**: Được lấy từ phần tiền tố (prefix) đứng trước ký tự `@` của địa chỉ email đã đăng ký. Ví dụ, nếu email là `nguyenvana@gmail.com`, hệ thống tự động phân tích và tạo username là `nguyenvana`.
+- **Tài khoản quản trị**: Username mặc định của Admin luôn là `admin`.
+- **Password**:
+  - **Admin**: Mật khẩu mặc định ban đầu là `admin`.
+  - **Nhân viên mới**: Mật khẩu tạm thời được thiết lập chính là Mã số sinh viên của trưởng nhóm (viết thường) để đảm bảo tính xác thực của mã nguồn tự phát triển.
+  - **Nhân viên cũ**: Sử dụng mật khẩu cá nhân đã được thay đổi trước đó.
 
-#### Luong xu ly sau khi xac thuc thanh cong
-- Truong hop Dang nhap lan dau (Nhan vien moi):
-  - He thong bat buoc phai chuyen huong nguoi dung den trang Doi mat khau ngay lap tuc.
-  - Nguoi dung khong can nhap mat khau cu trong form nay (vi dang su dung mat khau tam).
-  - Rang buoc nghiem ngat: Khi chua hoan thanh viec doi mat khau lan dau, nhan vien do se khong the truy cap bat ky chuc nang nao khac (nhu ban hang, san pham...). Moi nhat cu co tinh truy cap vao URL chuc nang se bi he thong chuyen huong tro lai trang doi mat khau hoac thuc hien dang xuat.
-- Truong hop tai khoan bi khoa (Locked):
-  - He thong tu choi dang nhap va hien thi thong bao ro rang ve tinh trang tai khoan dang bi khoa boi Admin.
-- Truong hop tai khoan hoat dong binh thuong:
-  - He thong kiem tra vai tro va chuyen huong ve admin_dashboard.php (doi voi Admin) hoac pos.php (doi voi Staff).
-
----
-
-### 2. Giao Dien Chinh va Phan Quyen UI/UX
-
-#### Bo cuc chung
-Giao dien duoc xay dung tren cau truc grid cua Bootstrap gom 3 khoi chinh:
-- Sidebar (Thanh dieu huong ben trai): Hien thi danh sach menu cac chuc nang phu hop voi quyen han cua nguoi dung.
-- Header (Thanh tieu de phia tren): Hien thi thong tin tai khoan dang dang nhap, anh dai dien (avatar) va nut dang xuat khoi he thong.
-- Main Content (Khu vuc noi dung chinh): Render giao dien chuc nang tuong ung.
-
-#### Menu chuc nang theo tung vai tro
-- Quyen Admin (Toan quyen):
-  - Bang dieu khien (Dashboard): Xem bieu do va cac con so thong ke tong quan.
-  - Quan ly nhan vien: Xem danh sach, cap tai khoan, khoa hoac mo khoa.
-  - Quan ly danh muc: Them, sua, xoa cac nhom phan loai hang hoa.
-  - Quan ly san pham: Quan ly danh sach san pham, gia nhap, gia ban va so luong ton kho.
-  - Bao cao va Phan tich: Theo doi cac bieu do doanh thu, chi phi va loi nhuan.
-  - Thong tin ca nhan: Cap nhat ho ten, so dien thoai, avatar va doi mat khau.
-- Quyen Nhan vien (Staff - Biet han che):
-  - Ban hang (POS): Trang ban hang chinh va la trang mac dinh sau khi dang nhap.
-  - Danh sach san pham: Chi duoc phep xem thong tin ten, ma vach, gia ban va ton kho. An toan bo gia nhap, khong co cac nut Them, Sua, Xoa.
-  - Quan ly khach hang: Tra cuu thong tin va xem lich su mua hang cua tung khach.
-  - Bao cao ca nhan: Xem tong doanh so ban hang do chinh minh thuc hien (khong xem duoc loi nhuan va doanh so cua nguoi khac).
-  - Thong tin ca nhan: Cap nhat thong tin profile va doi mat khau.
-
-#### Rang buoc UI/UX va bao mat he thong
-- Che do An/Hien: Kiem tra vai tro cua phien session. Nhan vien Staff se khong duoc he thong hien thi cac nut chuc nang nhu Xoa, Sua, cac input gia nhap, menu quan ly nhan vien.
-- Bao mat phia Server (PHP): Toan bo logic xu ly nghiep vu phia sau (nhu delete_product.php, add_employee.php) phai kiem tra quyen truy cap. Neu nguoi dung co tinh goi API hoac goi request tu cac cong cu ben ngoai nhu Postman ma khong co quyen hop le, server phai ngay lap tuc tu choi.
-- Tuong tac AJAX: Su dung thu vien jQuery de thuc hien gui nhan request bat dong bo khi loc du lieu dashboard, giup thay doi bieu do va thong tin ma khong can tai lai toan bo trang web.
+#### Luồng xử lý sau khi xác thực thành công
+- **Trường hợp Đăng nhập lần đầu (Nhân viên mới)**:
+  - Hệ thống bắt buộc phải chuyển hướng người dùng đến trang Đổi mật khẩu ngay lập tức.
+  - Người dùng không cần nhập mật khẩu cũ trong form này (vì đang sử dụng mật khẩu tạm).
+  - **Ràng buộc nghiêm ngặt**: Khi chưa hoàn thành việc đổi mật khẩu lần đầu, nhân viên đó sẽ không thể truy cập bất kỳ chức năng nào khác (như bán hàng, sản phẩm...). Mọi nỗ lực cố tình truy cập vào URL chức năng sẽ bị hệ thống chuyển hướng trở lại trang đổi mật khẩu hoặc thực hiện đăng xuất.
+- **Trường hợp tài khoản bị khóa (Locked)**:
+  - Hệ thống từ chối đăng nhập và hiển thị thông báo rõ ràng về tình trạng tài khoản đang bị khóa bởi Admin.
+- **Trường hợp tài khoản hoạt động bình thường**:
+  - Hệ thống kiểm tra vai trò và chuyển hướng về `admin_dashboard.php` (đối với Admin) hoặc `pos.php` (đối với Staff).
 
 ---
 
-### 3. Nghiep Vu Quan Ly Nhan Vien
+### 2. Giao Diện Chính và Phân Quyền UI/UX
 
-#### Quan ly danh sach
-- Hien thi bang tong quan: Bao gom anh dai dien (avatar), ho ten, gmail, so dien thoai va dac biet phai the hien ro trang thai tai khoan: Hoat dong, Chua kich hoat (nhan vien moi chua doi mat khau) hoac Bi khoa.
-- Cong cu ho tro: Bo loc tim kiem nhanh nhan vien theo ho ten hoac so dien thoai.
+#### Bố cục chung
+Giao diện được xây dựng trên cấu trúc grid của Bootstrap gồm 3 khối chính:
+- **Sidebar (Thanh điều hướng bên trái)**: Hiển thị danh sách menu các chức năng phù hợp với quyền hạn của người dùng.
+- **Header (Thanh tiêu đề phía trên)**: Hiển thị thông tin tài khoản đang đăng nhập, ảnh đại diện (avatar) và nút đăng xuất khỏi hệ thống.
+- **Main Content (Khu vực nội dung chính)**: Render giao diện chức năng tương ứng.
 
-#### Quy trinh cap tai khoan cho nhan vien moi
-- Buoc 1: Admin nhap ho ten va dia chi Gmail cua nhan vien vao form.
-- Buoc 2: Server tu dong sinh username tu Gmail, tao mat khau tam thoi la ma so sinh vien cua truong nhom, dong thoi tao ra mot chuoi token ngau nhien duy nhat va luu kem thoi gian tao (timestamp) vao database.
-- Buoc 3: Su dung thu vien PHPMailer de gui mot email chua link dang nhap co tham so token den dia chi Gmail cua nhan vien.
-- Buoc 4: Khi nhan vien click vao link, he thong kiem tra tinh hop le cua token va thoi gian phat sinh phai nho hon 1 phut. Neu qua han, he thong bao loi va yeu cau Admin thuc hien gui lai.
+#### Menu chức năng theo từng vai trò
+- **Quyền Admin (Toàn quyền)**:
+  - Bảng điều khiển (Dashboard): Xem biểu đồ và các con số thống kê tổng quan.
+  - Quản lý nhân viên: Xem danh sách, cấp tài khoản, khóa hoặc mở khóa.
+  - Quản lý danh mục: Thêm, sửa, xóa các nhóm phân loại hàng hóa.
+  - Quản lý sản phẩm: Quản lý danh sách sản phẩm, giá nhập, giá bán và số lượng tồn kho.
+  - Báo cáo và Phân tích: Theo dõi các biểu đồ doanh thu, chi phí và lợi nhuận.
+  - Thông tin cá nhân: Cập nhật họ tên, số điện thoại, avatar và đổi mật khẩu.
+- **Quyền Nhân viên (Staff - Bị hạn chế)**:
+  - Bán hàng (POS): Trang bán hàng chính và là trang mặc định sau khi đăng nhập.
+  - Danh sách sản phẩm: Chỉ được phép xem thông tin tên, mã vạch, giá bán và tồn kho. Ẩn toàn bộ giá nhập, không có các nút Thêm, Sửa, Xóa.
+  - Quản lý khách hàng: Tra cứu thông tin và xem lịch sử mua hàng của từng khách.
+  - Báo cáo cá nhân: Xem tổng doanh số bán hàng do chính mình thực hiện (không xem được lợi nhuận và doanh số của người khác).
+  - Thông tin cá nhân: Cập nhật thông tin profile và đổi mật khẩu.
 
-#### Cac hanh dong cua Admin
-- Xem chi tiet profile nhan vien.
-- Gui lai email kich hoat (neu link 1 phut cu da bi het han).
-- Khoa / Mo khoa tai khoan nhan vien (nguoi bi khoa se khong the thuc hien dang nhap).
-- Xem lich su ban hang cua nhan vien do de danh gia hieu suat lam viec.
-
----
-
-### 4. Nghiep Vu Quan Ly Danh Muc va San Pham
-
-#### Quan ly danh muc
-- Thong tin quan ly: Ten danh mục, mo ta, ngay tao, nguoi tao (he thong tu dong lay thong tin Admin dang thuc hien).
-- Cac thao tac: Xem danh sach, them moi, sua, xoa.
-- Rang buoc xoa: He thong kiem tra neu danh muc van con san pham ben trong, se khong cho phep xoa de bao ve toan ven du lieu.
-
-#### Quan ly san pham
-- Thong tin san pham: Ma vach (barcode), ten san pham, gia nhap khau (chi hien thi cho Admin), gia ban le, danh muc hang hoa, ngay tao.
-- Thao tac: Xem danh sach, them moi, cap nhat va xoa.
-- Rang buoc ve nghiep vu xoa san pham:
-  - Chi duoc phep xoa san pham neu san pham do chua tung phat sinh trong bat ky don hang nao truoc day.
-  - Neu san pham da co trong hoa don ban hang cua khach hang, he thong se lam an hoac vo hieu hoa nut xoa de tranh lam sai lech bao cao tai chinh.
+#### Ràng buộc UI/UX và bảo mật hệ thống
+- **Chế độ Ẩn/Hiện**: Kiểm tra vai trò của phiên session. Nhân viên Staff sẽ không được hệ thống hiển thị các nút chức năng như Xóa, Sửa, các input giá nhập, menu quản lý nhân viên.
+- **Bảo mật phía Server (PHP)**: Toan bộ logic xử lý nghiệp vụ phía sau (như `delete_product.php`, `add_employee.php`) phải kiểm tra quyền truy cập. Nếu người dùng cố tình gọi API hoặc gửi request từ các công cụ bên ngoài như Postman mà không có quyền hợp lệ, server phải ngay lập tức từ chối.
+- **Tương tác AJAX**: Sử dụng thư viện jQuery để thực hiện gửi nhận request bất đồng bộ khi lọc dữ liệu dashboard, giúp thay đổi biểu đồ và thông tin mà không cần tải lại toàn bộ trang web.
 
 ---
 
-### 5. Nghiep Vu Quan Ly Khach Hang
+### 3. Nghiệp Vụ Quản Lý Nhân Viên
 
-#### Co che khoi tao tu dong (Automation)
-- Khong co nut "Them khach hang" thu cong: Khach hang khong the tu dung duoc tao ra trong he thong ma phai phat sinh tu giao dich thuc te.
-- Luong khoi tao: Tai trang POS ban hang, khi nhan vien go so dien thoai ma he thong khong tim thay trong database, nhan vien se nhap them ho ten va dia chi cua khach do. Sau khi nhan nut thanh toan don hang thanh cong, thong tin khach hang moi chinh thuc duoc ghi vao bang customers.
+#### Quản lý danh sách
+- **Hiển thị bảng tổng quan**: Bao gồm ảnh đại diện (avatar), họ tên, gmail, số điện thoại và đặc biệt phải thể hiện rõ trạng thái tài khoản: Hoạt động, Chưa kích hoạt (nhân viên mới chưa đổi mật khẩu) hoặc Bị khóa.
+- **Công cụ hỗ trợ**: Bộ lọc tìm kiếm nhanh nhân viên theo họ tên hoặc số điện thoại.
 
-#### Xem danh sach va tra cuu lich su
-- Tra cuu nhanh khach hang bang ten hoac so dien thoai ngay tren giao dien.
-- Xem chi tiet khach hang gom: Tong so don hang da mua, tong so tien da tich luy.
-- Hien thi bang lich su giao dich chi tiet voi cac thong tin: Ngay gio mua hang, tong tien hoa don, so tien khach dua, tien tra lai va so luong san pham. Khi bam vao tung don se xem duoc chi tiet ten cac san pham va don gia tai thoi diem mua hang do.
+#### Quy trình cấp tài khoản cho nhân viên mới
+- **Bước 1**: Admin nhập họ tên và địa chỉ Gmail của nhân viên vào form.
+- **Bước 2**: Server tự động sinh username từ Gmail, tạo mật khẩu tạm thời là mã số sinh viên của trưởng nhóm, đồng thời tạo ra một chuỗi token ngẫu nhiên duy nhất và lưu kèm thời gian tạo (timestamp) vào database.
+- **Bước 3**: Sử dụng thư viện PHPMailer để gửi một email chứa link đăng nhập có tham số token đến địa chỉ Gmail của nhân viên.
+- **Bước 4**: Khi nhân viên click vào link, hệ thống kiểm tra tính hợp lệ của token và thời gian phát sinh phải nhỏ hơn 1 phút. Nếu quá hạn, hệ thống báo lỗi và yêu cầu Admin thực hiện gửi lại.
 
----
-
-### 6. Nghiep Vu POS va Xu Ly Giao Dich
-
-#### Them san pham vao gio hang
-- Hinh thuc nhap: Nhan vien nhap tu khoa tim kiem ten san pham hoac su dung thiet bi quet barcode san pham vao o tim kiem.
-- Xu ly Real-time: Khi tim kiem hoac quet ma vach ra san pham dung, san pham se tu dong duoc dua vao danh sach gio hang ngay lap tuc bang co che AJAX ma khong can bam nut xac nhan hay load lai trang.
-
-#### Gio hang tam thoi (Cart)
-- Moi dong san pham trong gio hang bao gom: Ten san pham, don gia ban le, o cap nhat nhanh so luong, thanh tien va nut xoa khoi gio hang.
-- Tinh tu dong: Khi thay doi so luong hoac xoa dong san pham, tong so tien va tong so luong san pham cua toan don hang phai tu dong thay doi va hien thi dung.
-
-#### Thanh toan don hang
-- Quy trinh: Nhan vien nhap so dien thoai khach hang. Neu la khach cu, he thong tu dong dien ho ten, dia chi va hien thi thong tin. Neu la khach moi thi nhap thong tin moi.
-- Tinh toan tien mat: Nhan vien nhap so tien khach dua. He thong tu dong tinh toan so tien tra lai cho khach (Tien tra lai = Tien khach dua - Tong tien don hang).
-- Hoan tat giao dich: Bam nut Thanh toan, he thong gui request luu tru don hang vao database, tao moi thong tin khach hang neu la khach moi, lam trong gio hang phien session hien tai va mo khoa mot modal thong bao thanh toan thanh cong kem theo link de in hoa don PDF duoc tao boi thu vien FPDF.
+#### Các hành động của Admin
+- Xem chi tiết profile nhân viên.
+- Gửi lại email kích hoạt (nếu link 1 phút cũ đã bị hết hạn).
+- Khóa / Mở khóa tài khoản nhân viên (người bị khóa sẽ không thể thực hiện đăng nhập).
+- Xem lịch sử bán hàng của nhân viên đó để đánh giá hiệu suất làm việc.
 
 ---
 
-### 7. Nghiep Vu Bao Cao va Phan Tich
+### 4. Nghiệp Vụ Quản Lý Danh Mục và Sản Phẩm
 
-#### Loc thong tin linh hoat
-He thong cho phep loc toan bo doanh thu, so don va loi nhuan theo cac moc thoi gian:
-- Hom nay
-- Hom qua
-- Trong vong 7 ngay qua
-- Thang nay
-- Khoang thoi gian tuy chon (vi du tu ngay 03/07 den 16/07).
-Toan bo don hang phai duoc sap xep theo thu tu thoi gian giam dan (moi nhat len dau).
+#### Quản lý danh mục
+- **Thông tin quản lý**: Tên danh mục, mô tả, ngày tạo, người tạo (hệ thống tự động lấy thông tin Admin đang thực hiện).
+- **Các thao tác**: Xem danh sách, thêm mới, sửa, xóa.
+- **Ràng buộc xóa**: Hệ thống kiểm tra nếu danh mục vẫn còn sản phẩm bên trong, sẽ không cho phép xóa để bảo vệ toàn vẹn dữ liệu.
 
-#### Hien thi cac chi so tai chinh quan trong
-Doi voi moi moc thoi gian duoc loc, he thong phai lam noi bat:
-- Tong doanh thu nhan duoc (doanh thu gop tu cac don).
-- Tong so don hang da thuc hien.
-- Tong so luong san pham da ban.
-- Danh sach cac don hang phat sinh chi tiet.
-
-#### Hieu suat va phan quyen trong bao cao
-- Quyen Nhan vien (Staff): Chi duoc xem doanh thu gop, so luong don hang va san pham cua chinh ban than lam ra.
-- Quyen Admin: Xem duoc toan bo chi so tren cua tat ca nhan vien, dong thoi duoc xem them cot Tong loi nhuan (cong thuc tinh: Loi nhuan = (Gia ban le - Gia nhap) * So luong).
-- UI/UX: Bao cao duoc hien thi qua ca dang bang liet ke chi tiet va bieu do truc quan de so sanh su tang truong doanh thu qua cac ngay trong tuan hoac so sanh ti trong cua cac danh muc san pham.
+#### Quản lý sản phẩm
+- **Thông tin sản phẩm**: Mã vạch (barcode), tên sản phẩm, giá nhập khẩu (chỉ hiển thị cho Admin), giá bán lẻ, danh mục hàng hóa, ngày tạo.
+- **Thao tác**: Xem danh sách, thêm mới, cập nhật và xóa.
+- **Ràng buộc về nghiệp vụ xóa sản phẩm**:
+  - Chỉ được phép xóa sản phẩm nếu sản phẩm đó chưa từng phát sinh trong bất kỳ đơn hàng nào trước đây.
+  - Nếu sản phẩm đã có trong hóa đơn bán hàng của khách hàng, hệ thống sẽ làm ẩn hoặc vô hiệu hóa nút xóa để tránh làm sai lệch báo cáo tài chính.
 
 ---
 
-## Huong Dan Cai Dat Local
+### 5. Nghiệp Vụ Quản Lý Khách Hàng
 
-### Yeu cau he thong
-- Phan mem gia lap may chu Apache va MySQL (Khuyen nghi su dung XAMPP phien ban 8.x tro len).
-- Phien ban PHP dat tu 8.0 tro len.
-- MySQL phien ban tu 5.7 hoac MariaDB tu 10.3 tro len.
+#### Cơ chế khởi tạo tự động (Automation)
+- **Không có nút "Thêm khách hàng" thủ công**: Khách hàng không thể tự dưng được tạo ra trong hệ thống mà phải phát sinh từ giao dịch thực tế.
+- **Luồng khởi tạo**: Tại trang POS bán hàng, khi nhân viên gõ số điện thoại mà hệ thống không tìm thấy trong database, nhân viên sẽ nhập thêm họ tên và địa chỉ của khách đó. Sau khi nhấn nút thanh toán đơn hàng thành công, thông tin khách hàng mới chính thức được ghi vào bảng `customers`.
 
-### Buoc 1 - Dat ma nguon vao thu muc XAMPP
-Hay dua toan bo ma nguon du an vao duong dan sau cua XAMPP:
+#### Xem danh sách và tra cứu lịch sử
+- Tra cứu nhanh khách hàng bằng tên hoặc số điện thoại ngay trên giao diện.
+- Xem chi tiết khách hàng gồm: Tổng số đơn hàng đã mua, tổng số tiền đã tích lũy.
+- Hiển thị bảng lịch sử giao dịch chi tiết với các thông tin: Ngày giờ mua hàng, tổng tiền hóa đơn, số tiền khách đưa, tiền trả lại và số lượng sản phẩm. Khi bấm vào từng đơn sẽ xem được chi tiết tên các sản phẩm và đơn giá tại thời điểm mua hàng đó.
+
+---
+
+### 6. Nghiệp Vụ POS và Xử Lý Giao Dịch
+
+#### Thêm sản phẩm vào giỏ hàng
+- **Hình thức nhập**: Nhân viên nhập từ khóa tìm kiếm tên sản phẩm hoặc sử dụng thiết bị quét barcode sản phẩm vào ô tìm kiếm.
+- **Xử lý Real-time**: Khi tìm kiếm hoặc quét mã vạch ra sản phẩm đúng, sản phẩm sẽ tự động được đưa vào danh sách giỏ hàng ngay lập tức bằng cơ chế AJAX mà không cần bấm nút xác nhận hay load lại trang.
+
+#### Giỏ hàng tạm thời (Cart)
+- Mỗi dòng sản phẩm trong giỏ hàng bao gồm: Tên sản phẩm, đơn giá bán lẻ, ô cập nhật nhanh số lượng, thành tiền và nút xóa khỏi giỏ hàng.
+- **Tính tự động**: Khi thay đổi số lượng hoặc xóa dòng sản phẩm, tổng số tiền và tổng số lượng sản phẩm của toàn đơn hàng phải tự động thay đổi và hiển thị đúng.
+
+#### Thanh toán đơn hàng
+- **Quy trình**: Nhân viên nhập số điện thoại khách hàng. Nếu là khách cũ, hệ thống tự động điền họ tên, địa chỉ và hiển thị thông tin. Nếu là khách mới thì nhập thông tin mới.
+- **Tính toán tiền mặt**: Nhân viên nhập số tiền khách đưa. Hệ thống tự động tính toán số tiền trả lại cho khách (Tiền trả lại = Tiền khách đưa - Tổng tiền đơn hàng).
+- **Hoàn tất giao dịch**: Bấm nút Thanh toán, hệ thống gửi request lưu trữ đơn hàng vào database, tạo mới thông tin khách hàng nếu là khách mới, làm trống giỏ hàng phiên session hiện tại và mở khóa một modal thông báo thanh toán thành công kèm theo link để in hóa đơn PDF được tạo bởi thư viện FPDF.
+
+---
+
+### 7. Nghiệp Vụ Báo Cáo và Phân Tích
+
+#### Lọc thông tin linh hoạt
+Hệ thống cho phép lọc toàn bộ doanh thu, số đơn và lợi nhuận theo các mốc thời gian:
+- Hôm nay
+- Hôm qua
+- Trong vòng 7 ngày qua
+- Tháng nay
+- Khoảng thời gian tùy chọn (ví dụ từ ngày 03/07 đến 16/07).
+
+Toàn bộ đơn hàng phải được sắp xếp theo thứ tự thời gian giảm dần (mới nhất lên đầu).
+
+#### Hiển thị các chỉ số tài chính quan trọng
+Đối với mỗi mốc thời gian được lọc, hệ thống phải làm nổi bật:
+- Tổng doanh thu nhận được (doanh thu gộp từ các đơn).
+- Tổng số đơn hàng đã thực hiện.
+- Tổng số lượng sản phẩm đã bán.
+- Danh sách các đơn hàng phát sinh chi tiết.
+
+#### Hiệu suất và phân quyền trong báo cáo
+- **Quyền Nhân viên (Staff)**: Chỉ được xem doanh thu gộp, số lượng đơn hàng và sản phẩm của chính bản thân làm ra.
+- **Quyền Admin**: Xem được toàn bộ chỉ số trên của tất cả nhân viên, đồng thời được xem thêm cột Tổng lợi nhuận (công thức tính: Loi nhuan = (Gia ban le - Gia nhap) * So luong).
+- **UI/UX**: Báo cáo được hiển thị qua cả dạng bảng liệt kê chi tiết và biểu đồ trực quan để so sánh sự tăng trưởng doanh thu qua các ngày trong tuần hoặc so sánh tỷ trọng của các danh mục sản phẩm.
+
+---
+
+## 📁 Cấu Trúc Dự Án
+
+```
+Demo DA21/
+│
+├── 📄 index.php                   # Trang đăng nhập
+├── 📄 logout.php                  # Xử lý đăng xuất
+├── 📄 verify-email.php            # Xác thực email kích hoạt tài khoản
+├── 📄 insert_sample_data.php      # Script thêm dữ liệu mẫu
+│
+├── 📂 config/
+│   ├── config.php                 # Cấu hình trung tâm + helper functions
+│   ├── database.php               # Kết nối MySQL + query helpers
+│   └── email_config.php           # Cấu hình SMTP gửi email
+│
+├── 📂 includes/
+│   ├── auth_check.php             # Middleware kiểm tra đăng nhập
+│   ├── header.php                 # Header chung (navbar top)
+│   └── sidebar.php                # Sidebar menu chung
+│
+├── 📂 modules/
+│   ├── 📂 auth/                   # Đăng nhập, đổi mật khẩu
+│   ├── 📂 dashboard/              # Dashboard admin & staff
+│   ├── 📂 pos/                    # Giao diện bán hàng POS
+│   │   ├── pos.php                # Màn hình bán hàng chính
+│   │   ├── cart_api.php           # API thêm/xóa/cập nhật giỏ hàng
+│   │   ├── cart_helpers.php       # Helper tính giỏ hàng từ session
+│   │   ├── checkout.php           # Xử lý thanh toán
+│   │   ├── find_product.php       # API tìm kiếm sản phẩm (fuzzy)
+│   │   ├── customer_lookup.php    # API tra cứu khách hàng theo SĐT
+│   │   └── invoice.php / in_hoa_don.php  # Xuất hóa đơn PDF
+│   ├── 📂 products/               # Quản lý sản phẩm
+│   ├── 📂 categories/             # Quản lý danh mục
+│   ├── 📂 employees/              # Quản lý nhân viên
+│   ├── 📂 customers/              # Quản lý khách hàng
+│   ├── 📂 orders/                 # Xem đơn hàng
+│   ├── 📂 reports/                # Báo cáo doanh thu & lợi nhuận
+│   ├── 📂 profile/                # Hồ sơ cá nhân
+│   └── 📂 api/                    # API fuzzy search
+│
+├── 📂 assets/
+│   ├── css/                       # Style sheets
+│   ├── js/                        # JavaScript files
+│   ├── images/                    # Ảnh hệ thống (logo, ảnh mặc định)
+│   └── uploads/                   # Ảnh do người dùng upload
+│
+├── 📂 libs/
+│   ├── fpdf/                      # Thư viện tạo PDF (hóa đơn)
+│   └── phpmailer/                 # Thư viện gửi email SMTP
+│
+├── 📂 database/
+│   └── pos_system.sql             # File SQL khởi tạo database
+│
+└── 📂 storage/
+    └── email_logs/                # Log email đã gửi (dạng HTML)
+```
+
+---
+
+## Hướng Dẫn Cài Đặt Local
+
+### Yêu cầu hệ thống
+- Phần mềm giả lập máy chủ Apache và MySQL (Khuyến nghị sử dụng XAMPP phiên bản 8.x trở lên).
+- Phiên bản PHP đạt từ 8.0 trở lên.
+- MySQL phiên bản từ 5.7 hoặc MariaDB từ 10.3 trở lên.
+
+### Bước 1 - Đặt mã nguồn vào thư mục XAMPP
+Hãy đưa toàn bộ mã nguồn dự án vào đường dẫn sau của XAMPP:
 ```
 C:\xampp\htdocs\Demo DA21\
 ```
 
-### Buoc 2 - Khoi dong may chu local
-1. Mo phan mem **XAMPP Control Panel**.
-2. Nhap nut **Start** cho ca hai dich vu **Apache** va **MySQL**.
-3. Kiem tra de chac chan ca hai dich vu da chuyen sang mau xanh la cay (Running).
+### Bước 2 - Khởi động máy chủ local
+1. Mở phần mềm **XAMPP Control Panel**.
+2. Nhấn nút **Start** cho cả hai dịch vụ **Apache** và **MySQL**.
+3. Kiểm tra để chắc chắn cả hai dịch vụ đã chuyển sang màu xanh lá cây (Running).
 
-### Buoc 3 - Khoi tao co so du lieu
-1. Truy cap vao trinh duyet web theo dia chi: `http://localhost/phpmyadmin`
-2. Nhap nut **New** o danh sach menu ben trai de tao database moi.
-3. Nhap ten database la: `pos_system`
-4. Phan bang ma ky tu (Collation), hay chon: `utf8mb4_unicode_ci` sau do nhan **Create**.
-5. Chon database `pos_system` vua tao, chuyen sang tab **Import** o thanh menu phia tren.
-6. Bam nut **Choose File** va tim den file nguon SQL cua du an tai duong dan: `database/pos_system.sql`.
-7. Keo xuong duoi cung va nhap nut **Import** de thuc hien import database.
+### Bước 3 - Khởi tạo cơ sở dữ liệu
+1. Truy cập vào trình duyệt web theo địa chỉ: `http://localhost/phpmyadmin`
+2. Nhấn nút **New** ở danh sách menu bên trái để tạo database mới.
+3. Nhập tên database là: `pos_system`
+4. Phần bảng mã ký tự (Collation), hãy chọn: `utf8mb4_unicode_ci` sau đó nhấn **Create**.
+5. Chọn database `pos_system` vừa tạo, chuyển sang tab **Import** ở thanh menu phía trên.
+6. Bấm nút **Choose File** và tìm đến file nguồn SQL của dự án tại đường dẫn: `database/pos_system.sql`.
+7. Kéo xuống dưới cùng và nhấp nút **Import** để thực hiện import database.
 
-### Buoc 4 - Thiet lap thong so database
-Mo file `config/database.php` va dieu chinh thong tin cho khop voi tai khoan MySQL tren may cua ban:
+### Bước 4 - Thiết lập thông số database
+Mở file `config/database.php` và điều chỉnh thông tin cho khớp với tài khoản MySQL trên máy của bạn:
 ```php
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', ''); // Mac dinh cua XAMPP la de rong
+define('DB_PASS', ''); // Mặc định của XAMPP là để rỗng
 define('DB_NAME', 'pos_system');
 ```
 
-### Buoc 5 - Thiet lap gui mail xac thuc (Tuy chon)
-De chuc nang gui email xac thuc cho nhan vien moi hoat dong, mo file `config/email_config.php` va dien thong tin tai khoan SMTP:
+### Bước 5 - Thiết lập gửi mail xác thực (Tùy chọn)
+Để chức năng gửi email xác thực cho nhân viên mới hoạt động, mở file `config/email_config.php` và điền thông tin tài khoản SMTP:
 ```php
 define('MAIL_HOST', 'smtp.gmail.com');
 define('MAIL_PORT', 587);
@@ -238,55 +316,55 @@ define('MAIL_FROM', 'dia_chi_gmail_cua_ban@gmail.com');
 define('MAIL_FROM_NAME', 'POS System');
 ```
 
-### Buoc 6 - Khoi chay va trai nghiem he thong
-Mo trinh duyet web va truy cap vao dia chi sau de vao trang dang nhap:
+### Bước 6 - Khởi chạy và trải nghiệm hệ thống
+Mở trình duyệt web và truy cập vào địa chỉ sau để vào trang đăng nhập:
 ```
 http://localhost/Demo%20DA21/
 ```
 
-### Buoc 7 - Thong tin tai khoan dang nhap mac dinh
-- Quyen Admin:
+### Bước 7 - Thông tin tài khoản đăng nhập mặc định
+- **Quyền Admin**:
   - Username: `admin`
   - Password: `admin`
-- Quyen Nhan vien moi:
-  - Can tao moi tai khoan tu trang Admin, sau do kiem tra hoac xem thu muc log de lay link xac thuc dang nhap va thiet lap mat khau.
+- **Quyền Nhân viên mới**:
+  - Cần tạo mới tài khoản từ trang Admin, sau đó kiểm tra hoặc xem thư mục log để lấy link xác thực đăng nhập và thiết lập mật khẩu.
 
-### Buoc 8 - Chen du lieu gia lap de test chuc nang
-De he thong tu dong nap san du lieu ve danh muc, san pham, khach hang va hoa don mau de ban test cac bieu do thong ke, hay truy cap link sau tren trinh duyet:
+### Bước 8 - Chèn dữ liệu giả lập để test chức năng
+Để hệ thống tự động nạp sẵn dữ liệu về danh mục, sản phẩm, khách hàng và hóa đơn mẫu để bạn test các biểu đồ thống kê, hãy truy cập link sau trên trình duyệt:
 ```
 http://localhost/Demo%20DA21/insert_sample_data.php
 ```
 
 ---
 
-## So Do Cau Truc Du Lieu (Database Schema)
+## Sơ Đồ Cấu Trúc Dữ Liệu (Database Schema)
 
-Duoi day la danh sach cac truong thong tin chinh cua he thong database de ban tien theo doi:
+Dưới đây là danh sách các trường thông tin chính của hệ thống database để bạn tiện theo dõi:
 
 ```sql
--- Bang nguoi dung
+-- Bảng người dùng
 users (id, username, email, password_hash, full_name, role, status, must_change_password, email_token, avatar, created_at)
 
--- Bang danh muc hang hoa
+-- Bảng danh mục hàng hóa
 categories (id, name, description, created_at)
 
--- Bang san pham
+-- Bảng sản phẩm
 products (id, category_id, name, barcode, price_import, price_sell, stock, image, description, created_at)
 
--- Bang khach hang
+-- Bảng khách hàng
 customers (id, name, phone, address, created_at)
 
--- Bang don hang
+-- Bảng đơn hàng
 orders (id, order_code, customer_id, user_id, total_amount, customer_paid, change_amount, created_at)
 
--- Bang chi tiet don hang
+-- Bảng chi tiết đơn hàng
 order_items (id, order_id, product_id, quantity, price_sell, price_import, subtotal)
 ```
 
 ---
 
-## Luu Y Bao Mat Truoc Khi Trien Khai Thuc Te
-- Chuyen hang so `DEBUG_MODE` ve gia tri `false` trong file `config/config.php` de tranh de lo thong tin loi he thong cho nguoi dung.
-- Them token CSRF vao cac form nhap lieu de phong chong tan cong CSRF.
-- Thiet lap cau hinh SSL (HTTPS) cho web server de ma hoa thong tin phien session cookie.
-- Thay the tai khoan root mac dinh cua MySQL bang mot tai khoan gioi han quyen thao tac chi tren database `pos_system`.
+## Lưu Ý Bảo Mật Trước Khi Triển Khai Thực Tế
+- Chuyển hằng số `DEBUG_MODE` về giá trị `false` trong file `config/config.php` để tránh để lộ thông tin lỗi hệ thống cho người dùng.
+- Thêm token CSRF vào các form nhập liệu để phòng chống tấn công CSRF.
+- Thiết lập cấu hình SSL (HTTPS) cho web server để mã hóa thông tin phiên session cookie.
+- Thay thế tài khoản root mặc định của MySQL bằng một tài khoản giới hạn quyền thao tác chỉ trên database `pos_system`.
